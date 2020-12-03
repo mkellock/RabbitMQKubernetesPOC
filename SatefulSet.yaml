@@ -4,7 +4,6 @@ metadata:
   name: rabbitmq
   labels:
     name: rabbitmqtt
-  namespace: rabbits
 spec:
   serviceName: rabbitmq
   selector:
@@ -15,7 +14,6 @@ spec:
       labels:
         app: rabbitmqtt
         name: rabbitmqtt
-      namespace: rabbits
     spec:
       serviceAccountName: rabbitmq
       initContainers:

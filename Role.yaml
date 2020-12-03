@@ -4,7 +4,6 @@ metadata:
   name: rabbitmq
   labels:
     name: rabbitmqtt
-  namespace: rabbits
 rules:
 - apiGroups: 
     - ""

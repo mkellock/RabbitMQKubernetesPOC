@@ -6,7 +6,6 @@ metadata:
   name: rabbitmq-autoscaler
   labels:
     name: rabbitmqtt
-  namespace: rabbits
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
