@@ -7,10 +7,10 @@ This is a simple helm chart to demonstrate the following:
 - Enabling MQTT out of the box for any instances
 - Specifying soft and hard limits on RabbitMQ and pod resources
 
-To run it, just execute the helm chart by running
+To run it, just execute the helm chart by running:
 
 ```bash
-kubectl apply -f .\rabbitmqtt.yaml
+kubectl apply -f .
 ```
 
 ## Note
