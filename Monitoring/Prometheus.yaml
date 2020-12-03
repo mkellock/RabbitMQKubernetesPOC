@@ -6,4 +6,4 @@ spec:
   serviceAccountName: prometheus
   serviceMonitorSelector:
     matchLabels:
-      app: rabbitmqtt
+      app: rabbitmq
