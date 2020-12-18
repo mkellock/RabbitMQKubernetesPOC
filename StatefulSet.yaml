@@ -5,7 +5,6 @@ metadata:
   labels:
     name: rabbitmqtt
 spec:
-  serviceName: rabbitmq
   selector:
     matchLabels:
       app: rabbitmqtt
@@ -16,21 +15,9 @@ spec:
         name: rabbitmqtt
     spec:
       serviceAccountName: rabbitmq
-      initContainers:
-      - name: config
-        image: busybox
-        command: ['/bin/sh', '-c', 'cp /tmp/config/rabbitmq.conf /config/rabbitmq.conf && ls -l /config/ && cp /tmp/config/enabled_plugins /etc/rabbitmq/enabled_plugins']
-        volumeMounts:
-        - name: config
-          mountPath: /tmp/config/
-          readOnly: false
-        - name: config-file
-          mountPath: /config/
-        - name: plugins-file
-          mountPath: /etc/rabbitmq/
       containers:
       - name: rabbitmq
-        image: rabbitmq:3.8-management
+        image: mkellock/polrrabbitmq:latest
         ports:
         - containerPort: 4369
           name: discovery
@@ -49,18 +36,22 @@ spec:
             port: 1883
           initialDelaySeconds: 30
           periodSeconds: 30
+          failureThreshold: 10
+          successThreshold: 3
         livenessProbe:
           tcpSocket:
             port: 1883
-          initialDelaySeconds: 30
+          initialDelaySeconds: 180
           periodSeconds: 30
         resources:
           requests:
             memory: "2Gi"
             cpu: "250m"
+            ephemeral-storage: "10Gi"
           limits:
             memory: "2.5Gi"
             cpu: "325m"
+            ephemeral-storage: "30Gi"
         env:
         - name: RABBIT_POD_NAME
           valueFrom:
@@ -73,10 +64,6 @@ spec:
               fieldPath: metadata.namespace
         - name: RABBITMQ_NODENAME
           value: rabbit@$(RABBIT_POD_NAME).rabbitmq.$(RABBIT_POD_NAMESPACE).svc.cluster.local
-        - name: RABBITMQ_USE_LONGNAME
-          value: "true"
-        - name: RABBITMQ_CONFIG_FILE
-          value: "/config/rabbitmq"
         - name: RABBITMQ_ERLANG_COOKIE
           valueFrom:
             secretKeyRef:
