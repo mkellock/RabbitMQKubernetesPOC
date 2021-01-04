@@ -2,17 +2,23 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rabbitmq
+  namespace: mqtt
   labels:
     name: rabbitmqtt
 spec:
   ports:
   - port: 1883
     name: mqtt
+    protocol: TCP
+    targetPort: mqtt
   - port: 8883
     name: mqttssl
+    protocol: TCP
+    targetPort: mqttssl
   - port: 15672
-    name: admin
+    name: rabbitmqadmin
+    protocol: TCP
+    targetPort: rabbitmqadmin
   selector:
     app: rabbitmqtt
-  externalTrafficPolicy: Local
   type: LoadBalancer

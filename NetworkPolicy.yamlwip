@@ -5,7 +5,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: rabbitmq
+      app: rabbitmqblah
   policyTypes:
   - Ingress
   - Egress
@@ -13,8 +13,6 @@ spec:
   - from:
     - ipBlock:
         cidr: 172.17.0.0/16
-        except:
-        - 172.17.1.0/24
     - namespaceSelector:
         matchLabels:
           project: myproject

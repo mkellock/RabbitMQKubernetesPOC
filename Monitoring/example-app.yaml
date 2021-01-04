@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: prometheus
+  labels:
+    app: rabbitmqtt
+  namespace: mqtt
+spec:
+  selector:
+    app: rabbitmqtt
+  ports:
+  - name: prometheus
+    protocol: TCP
+    port: 15692
+    targetPort: prometheus

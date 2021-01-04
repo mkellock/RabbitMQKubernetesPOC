@@ -31,8 +31,9 @@ cluster_formation.k8s.host = kubernetes.default.svc.cluster.local\n\
 cluster_formation.k8s.address_type = hostname\n\
 cluster_formation.node_cleanup.only_log_warning = true\n\
 vm_memory_high_watermark.absolute = 2147483648\n\
-log.file.rotation.size = 5368709120' > /config/rabbitmq.conf
+log.file.rotation.size = 5368709120\n\
+prometheus.tcp.port = 8080' > /config/rabbitmq.conf
 
-EXPOSE 1883 4369 5671 5672 8883 15671 15672 15691 15692 25672
+EXPOSE 1883 4369 5671 5672 8883 15671 15672 15691 15692 25672 8080
 
 USER rabbitmq
