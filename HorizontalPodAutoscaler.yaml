@@ -1,9 +1,8 @@
-
----
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: rabbitmq-autoscaler
+  namespace: mqtt
   labels:
     name: rabbitmqtt
 spec:
