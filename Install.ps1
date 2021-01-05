@@ -1,3 +1,19 @@
+# Create MQTT namespace
+kubectl apply -f Namespace.yaml
+
+# Wait for the MQTT namespace to be created
+$crd = & kubectl get ns 2>&1
+
+while (
+    ($null -eq $($crd | Where-Object { $_ -match 'mqtt' }))
+    ) {
+    Write-Output "Waiting for `"MQTT`" namespace to be provisioned..."
+
+    Start-Sleep -s 1
+
+    $crd = & kubectl get ns 2>&1
+}
+
 # Install RabbitMQ
 kubectl apply -f .
 
